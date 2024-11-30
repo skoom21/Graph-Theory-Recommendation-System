@@ -32,4 +32,8 @@ python main.py
 - Rating prediction system
 
 ## Contributing
+<<<<<<< HEAD
 Feel free to open issues and submit pull requests.
+=======
+Feel free to open issues and submit pull requests.
+>>>>>>> 8fcaaa927e9265159119170b8e28166e65520988
