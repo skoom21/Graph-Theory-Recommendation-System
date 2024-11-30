@@ -2,6 +2,7 @@ import networkx as nx
 import time
 import sys
 from collections import defaultdict
+from sklearn.metrics import precision_score, recall_score, f1_score
 
 def build_graph(ratings):
     G = nx.Graph()

@@ -67,88 +67,6 @@ def display_recommendations(movie_ids, movies_df):
     return recommendations['title'].tolist()
 
 
-# def create_interactive_graph_visualization(G, max_nodes=100, max_edges=200):
-#     try:
-#         # Limit the number of nodes and edges for visualization
-#         if len(G.nodes) > max_nodes:
-#             G = nx.Graph(G.subgraph(list(G.nodes)[:max_nodes]))
-#         if len(G.edges) > max_edges:
-#             G = nx.Graph(G.edge_subgraph(list(G.edges)[:max_edges]))
-
-#         # Use bipartite layout for bipartite graph visualization
-#         pos = nx.bipartite_layout(G, nodes=[n for n, d in G.nodes(data=True) if d['bipartite'] == 0])  # users as one set
-
-#         edge_trace = go.Scatter(
-#             x=[],
-#             y=[],
-#             line=dict(width=0.5, color='#888'),
-#             hoverinfo='none',
-#             mode='lines')
-
-#         # Loop over edges and unpack positions to avoid tuple concatenation error
-#         for edge in G.edges():
-#             x0, y0 = pos[edge[0]]  # Unpacking the tuple into separate x, y
-#             x1, y1 = pos[edge[1]]  # Unpacking the tuple into separate x, y
-#             edge_trace['x'] += (x0, x1, None)
-#             edge_trace['y'] += (y0, y1, None)
-
-#         node_trace = go.Scatter(
-#             x=[],
-#             y=[],
-#             text=[],
-#             mode='markers+text',
-#             hoverinfo='text',
-#             marker=dict(
-#                 showscale=True,
-#                 colorscale='YlGnBu',
-#                 size=10,
-#                 colorbar=dict(
-#                     thickness=15,
-#                     title='Node Connections',
-#                     xanchor='left',
-#                     titleside='right'
-#                 ),
-#                 line_width=2))
-
-#         # Separate nodes by type (users and movies)
-#         for node in G.nodes():
-#             x, y = pos[node]
-#             node_trace['x'] += [x]  # Add x-coordinate
-#             node_trace['y'] += [y]  # Add y-coordinate
-
-#         node_adjacencies = []
-#         node_text = []
-#         for node, adjacencies in G.adjacency():
-#             node_adjacencies.append(len(adjacencies))
-#             node_text.append(f'# of connections: {len(adjacencies)}')
-
-#         node_trace.marker.color = node_adjacencies
-#         node_trace.text = node_text
-
-#         fig = go.Figure(data=[edge_trace, node_trace],
-#                         layout=go.Layout(
-#                             title='<br>Interactive Graph Visualization',
-#                             titlefont=dict(size=16),
-#                             showlegend=False,
-#                             hovermode='closest',
-#                             margin=dict(b=20, l=5, r=5, t=40),
-#                             annotations=[dict(
-#                                 text="Interactive Graph Visualization",
-#                                 showarrow=False,
-#                                 xref="paper", yref="paper")],
-#                             xaxis=dict(showgrid=False, zeroline=False),
-#                             yaxis=dict(showgrid=False, zeroline=False)))
-
-#         st.plotly_chart(fig)
-#     except ImportError as e:
-#         logging.error(f"ImportError in create_interactive_graph_visualization: {e}")
-#         st.error("An error occurred while importing necessary libraries. Please ensure all dependencies are installed.")
-#     except nx.NetworkXError as e:
-#         logging.error(f"NetworkXError in create_interactive_graph_visualization: {e}")
-#         st.error("An error occurred while processing the graph. Please check the graph data.")
-#     except Exception as e:
-#         logging.error(f"Unexpected error in create_interactive_graph_visualization: {e}")
-#         st.error("An unexpected error occurred. Please check the logs for more details.")
 def create_interactive_graph_visualization(G, max_nodes=300, max_edges=200):
     try:
         # Limit graph size
@@ -272,7 +190,7 @@ def main():
             ratings_df = pd.read_csv(ratings_file)
         st.success('✅ Data loaded successfully!')
         with st.spinner('⚙️ Preprocessing data...'):
-            user_movie_matrix = preprocess_data(ratings_df, movies_df)
+            user_movie_matrix =  preprocess_data(ratings_df, movies_df)
         st.success('✅ Data preprocessing complete!')
 
         # Create tabs for different sections
